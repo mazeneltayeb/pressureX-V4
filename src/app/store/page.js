@@ -3504,6 +3504,7 @@ const AddToCartButton = React.memo(function AddToCartButton({ product, isLoggedI
   return (
     <>
       <Button 
+      style={{color:"black",opacity:"1", border:"0"}} 
         variant={productStatus.buttonVariant}
         className={`w-100 main-button ${!productStatus.available ? 'disabled-btn' : ''}`}
         onClick={handleAddToCartClick}
@@ -3529,7 +3530,7 @@ const AddToCartButton = React.memo(function AddToCartButton({ product, isLoggedI
               <h6 className="mt-2">{product.name}</h6>
               <div className="d-flex justify-content-center align-items-center gap-2 mt-1">
                 <p className="text-success h5 mb-0">{product.price} ج.م</p>
-                <Badge bg={productStatus.badgeColor} className="ms-2">
+                <Badge bg={productStatus.badgeColor} className="ms-2 ">
                   {productStatus.badgeIcon} {productStatus.badgeText}
                 </Badge>
               </div>
@@ -4119,7 +4120,8 @@ export default function StorePage() {
  {/* 🔹 أدوات البحث والفلترة */}
         <div className="row mb-4" >
           {/* البحث بالرقم - يبقى في الأعلى */}
-          <div className="col-12 mb-3" style={{
+          <div className="col-12 mb-3"
+           style={{
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
@@ -4130,7 +4132,7 @@ export default function StorePage() {
             </Form.Text>
             <InputGroup style={{
               maxWidth: "500px",
-    minWidth: "275px",
+              minWidth: "275px",
             }} className="shadow-sm">
               <Form.Control
                 type="number"
@@ -4231,7 +4233,7 @@ export default function StorePage() {
         </div>
 
       {/* 🔹 شبكة المنتجات */}
-      <Row>
+      <Row >
         {currentProducts.length > 0 ? (
           currentProducts.map((product) => {
             const productStatus = getProductStatus(product);
@@ -4267,8 +4269,9 @@ export default function StorePage() {
                       )}
                       {/* Overlay إذا غير متوفر */}
                       {!productStatus.available && (
-                        <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                          <Badge bg={productStatus.badgeColor} className="fs-6 p-2">
+                        <div 
+                           className=" d-none position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                          <Badge  bg={productStatus.badgeColor} className="fs-6 p-2">
                             {productStatus.badgeIcon} {productStatus.badgeText}
                           </Badge>
                         </div>
@@ -4307,13 +4310,13 @@ export default function StorePage() {
                     </Card.Title>
                     
                     {/* وصف قصير */}
-                    <Card.Text 
+                    {/* <Card.Text 
                       className="text-muted mb-3" 
                       style={{ fontSize: "0.9rem", minHeight: "2.5rem" }}
                     >
                       {product.description?.slice(0, 70) || "لا يوجد وصف..."}
                       {product.description && product.description.length > 70 && "..."}
-                    </Card.Text>
+                    </Card.Text> */}
                     
                     {/* السعر وأزرار التحكم */}
                     <div className="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
@@ -4482,9 +4485,11 @@ export default function StorePage() {
           transform: scale(1.02);
         }
         .disabled-btn {
+        
           opacity: 0.6;
           cursor: not-allowed;
         }
+        
       `}</style>
     </Container>
   );
