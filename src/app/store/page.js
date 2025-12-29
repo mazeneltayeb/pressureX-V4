@@ -3913,7 +3913,7 @@ export default function StorePage() {
       <h1 className="text-center mb-4">🛍️ متجرنا</h1>
 
       {/* 🔹 إحصائيات سريعة */}
-      <div className="row mb-4">
+      {/* <div className="row mb-4">
         <div className="col-md-3 mb-2">
           <div className="card bg-light border">
             <div className="card-body text-center p-2">
@@ -3946,7 +3946,7 @@ export default function StorePage() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* 🔹 أزرار التحكم */}
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -3962,9 +3962,9 @@ export default function StorePage() {
           </Button>
         </div>
         
-        <div className="text-muted small">
+        {/* <div className="text-muted small">
           {stats.availablePercentage}% من المنتجات متوفرة
-        </div>
+        </div> */}
       </div>
 
       {/* 🔹 تنبيهات حالة المصادقة */}
@@ -3985,13 +3985,17 @@ export default function StorePage() {
       )}
 
       {/* 🔹 أدوات البحث والفلترة */}
-      <div className="row justify-content-between mb-4">
+      {/* d-none */}
+      <div className=" d-none row justify-content-between mb-4">
         {/* البحث بالرقم */}
         <div className="col-lg-2 col-md-6 mb-3">
+           <Form.Text className="text-muted">
+            ابحث بالرقم
+          </Form.Text>
           <InputGroup className="shadow-sm">
             <Form.Control
               type="number"
-              placeholder="🔍 ابحث بالرقم..."
+              placeholder="🔍Part Number"
               value={searchNumber}
               onChange={(e) => setSearchNumber(e.target.value)}
             />
@@ -4005,9 +4009,7 @@ export default function StorePage() {
               </Button>
             )}
           </InputGroup>
-          <Form.Text className="text-muted">
-            ابحث بالرقم
-          </Form.Text>
+         
         </div>
 
         {/* فلترة الفئة */}
@@ -4082,8 +4084,8 @@ export default function StorePage() {
           </Form.Text>
         </div>
       </div>
-
-      {/* 🔹 مؤشر النتائج */}
+        {/*  */}
+           {/* 🔹 مؤشر النتائج */}
       <div className="text-center mb-4">
         <Alert variant="light" className="d-inline-block">
           <strong>
@@ -4114,6 +4116,119 @@ export default function StorePage() {
           )}
         </Alert>
       </div>
+ {/* 🔹 أدوات البحث والفلترة */}
+        <div className="row mb-4" >
+          {/* البحث بالرقم - يبقى في الأعلى */}
+          <div className="col-12 mb-3" style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+          }}>
+            <Form.Text className="text-muted">
+              ابحث بالرقم
+            </Form.Text>
+            <InputGroup style={{
+              maxWidth: "500px",
+    minWidth: "275px",
+            }} className="shadow-sm">
+              <Form.Control
+                type="number"
+                placeholder="🔍Part Number"
+                value={searchNumber}
+                onChange={(e) => setSearchNumber(e.target.value)}
+              />
+              {searchNumber && (
+                <Button 
+                  variant="outline-secondary" 
+                  onClick={clearSearch}
+                  title="مسح البحث"
+                >
+                  ✕
+                </Button>
+              )}
+            </InputGroup>
+          </div>
+
+          {/* الأربع عناصر في صف واحد مع سكرول أفقي */}
+          <div className="col-12 text-center" >
+            <h6 className="text-muted">للمزيد من حلول البحث</h6>
+            <div className="d-flex flex-nowrap overflow-auto pb-2 gap-2 justify-content-md-center" style={{ scrollbarWidth: 'thin' }}>
+              
+              {/* فلترة الفئة */}
+              <div className="flex-shrink-0" style={{ minWidth: '100px' }}>
+                <Form.Select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="shadow-sm"
+                >
+                  <option value="الكل">📂 كل الفئات</option>
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.name}>
+                      {category.name}
+                    </option>
+                  ))}
+                </Form.Select>
+                <Form.Text className="text-muted">
+                  الفئة
+                </Form.Text>
+              </div>
+
+              {/* فلترة التوفر */}
+              <div className="flex-shrink-0" style={{ minWidth: '100px' }}>
+                <Form.Select
+                  value={availabilityFilter}
+                  onChange={(e) => setAvailabilityFilter(e.target.value)}
+                  className="shadow-sm"
+                >
+                  <option value="الكل">📊 كل الحالات</option>
+                  <option value="متوفر">🟢 متوفر فقط</option>
+                  <option value="غير متوفر">🔴 غير متوفر</option>
+                  <option value="محدود">🟡 كميات محدودة</option>
+                  <option value="قريباً">🟡 قريباً</option>
+                </Form.Select>
+                <Form.Text className="text-muted">
+                  حالة التوفر
+                </Form.Text>
+              </div>
+
+              {/* ترتيب المنتجات */}
+              <div className="flex-shrink-0" style={{ minWidth: '100px' }}>
+                <Form.Select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="shadow-sm"
+                >
+                  <option value="newest">🆕 الأحدث أولاً</option>
+                  <option value="price-low">💰 السعر: من الأقل</option>
+                  <option value="price-high">💰 السعر: من الأعلى</option>
+                  <option value="stock-high">📦 المخزون: من الأعلى</option>
+                  <option value="stock-low">📦 المخزون: من الأقل</option>
+                </Form.Select>
+                <Form.Text className="text-muted">
+                  ترتيب المنتجات
+                </Form.Text>
+              </div>
+
+              {/* عدد العناصر في الصفحة */}
+              <div className="flex-shrink-0" style={{ minWidth: '100px' }}>
+                <Form.Select
+                  value={itemsPerPage}
+                  onChange={handleItemsPerPageChange}
+                  className="shadow-sm"
+                >
+                  <option value={12}>📄 12 منتج</option>
+                  <option value={20}>📄 20 منتج</option>
+                  <option value={40}>📄 40 منتج</option>
+                  <option value={60}>📄 60 منتج</option>
+                </Form.Select>
+                <Form.Text className="text-muted">
+                  لكل صفحة
+                </Form.Text>
+              </div>
+            </div>
+          </div>
+        </div>
 
       {/* 🔹 شبكة المنتجات */}
       <Row>
